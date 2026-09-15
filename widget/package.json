@@ -25,7 +25,7 @@
       "icon": "assets/icon.ico"
     },
     "portable": {
-      "artifactName": "${productName}-${version}-portable.${ext}"
+      "artifactName": "${productName}-${version}-x64.${ext}"
     },
     "files": [
       "main.js",

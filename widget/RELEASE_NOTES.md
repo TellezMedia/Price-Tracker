@@ -1,5 +1,55 @@
 # Price Tracker Widget - Release Notes
 
+## v0.1.5 (Beta)
+
+Changed
+- Switched back to a portable single-file exe instead of the NSIS
+  installer. Simpler and matches the task widget's build process:
+  two commands (npm install, npm run build), one file out, no
+  install wizard, no code-signing tooling, no arch configuration to
+  get wrong.
+- Going forward, every version you get is a complete, self-contained
+  zip. Unzip it over your existing project folder and overwrite
+  everything, no more tracking which individual files changed.
+
+## v0.1.4 (Beta)
+
+Fixed
+- The x64 arch setting was in the wrong place in package.json,
+  electron-builder rejected it as an unknown property under win.
+  Moved it into the nsis target definition where it actually
+  belongs: win.target is now an array with the arch nested inside
+  the target entry, not a sibling property.
+- Added description and author fields to package.json, cleared two
+  harmless but noisy warnings electron-builder was printing on
+  every build.
+
+## v0.1.3 (Beta)
+
+Changed
+- Build now explicitly targets x64 (64-bit Windows) instead of
+  implicitly using whatever architecture the build machine happens
+  to be. Covers the vast majority of Windows PCs, including yours.
+- Installer filename now includes the version and architecture:
+  Price-Tracker-Setup-0.1.3-x64.exe, so it's self-explanatory to
+  anyone downloading it later.
+
+## v0.1.2 (Beta)
+
+Changed
+- Switched packaging from a portable single-file exe to a proper
+  NSIS installer (Setup.exe): install wizard, Start Menu shortcut,
+  Desktop shortcut, and a normal uninstaller listed in Windows'
+  "Add or Remove Programs." Run `npm run build`, the installer
+  lands in the dist folder.
+
+## v0.1.1 (Beta)
+
+Added
+- Product thumbnails: shows the product image in both the list row
+  and the detail panel header, pulled from the worker's new
+  imageUrl field (requires worker v0.1.4 or later)
+
 ## v0.1.0 (Beta)
 
 Initial build of the Electron desktop widget.
@@ -32,53 +82,3 @@ Not yet built
 - Any bundled default icon set beyond the generated placeholder
   icon, happy to swap in something custom if you want a different
   look
-
-## v0.1.1 (Beta)
-
-Added
-- Product thumbnails: shows the product image in both the list row
-  and the detail panel header, pulled from the worker's new
-  imageUrl field (requires worker v0.1.4 or later)
-
-## v0.1.2 (Beta)
-
-Changed
-- Switched packaging from a portable single-file exe to a proper
-  NSIS installer (Setup.exe): install wizard, Start Menu shortcut,
-  Desktop shortcut, and a normal uninstaller listed in Windows'
-  "Add or Remove Programs." Run `npm run build`, the installer
-  lands in the dist folder.
-
-## v0.1.3 (Beta)
-
-Changed
-- Build now explicitly targets x64 (64-bit Windows) instead of
-  implicitly using whatever architecture the build machine happens
-  to be. Covers the vast majority of Windows PCs, including yours.
-- Installer filename now includes the version and architecture:
-  Price-Tracker-Setup-0.1.3-x64.exe, so it's self-explanatory to
-  anyone downloading it later.
-
-## v0.1.4 (Beta)
-
-Fixed
-- The x64 arch setting was in the wrong place in package.json,
-  electron-builder rejected it as an unknown property under win.
-  Moved it into the nsis target definition where it actually
-  belongs: win.target is now an array with the arch nested inside
-  the target entry, not a sibling property.
-- Added description and author fields to package.json, cleared two
-  harmless but noisy warnings electron-builder was printing on
-  every build.
-
-## v0.1.5 (Beta)
-
-Changed
-- Switched back to a portable single-file exe instead of the NSIS
-  installer. Simpler and matches the task widget's build process:
-  two commands (npm install, npm run build), one file out, no
-  install wizard, no code-signing tooling, no arch configuration to
-  get wrong.
-- Going forward, every version you get is a complete, self-contained
-  zip. Unzip it over your existing project folder and overwrite
-  everything, no more tracking which individual files changed.
