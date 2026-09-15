@@ -143,9 +143,32 @@ body {
   align-items: baseline;
 }
 
+.product-row-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.product-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--surface-hover);
+}
+
+.product-thumb-placeholder {
+  border: 1px dashed var(--border);
+}
+
 .product-row-name {
   font-weight: 600;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .product-row-price {
@@ -187,6 +210,21 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 16px;
+}
+
+.detail-header-identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.detail-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
 }
 
 .detail-title {

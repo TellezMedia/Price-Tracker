@@ -94,7 +94,10 @@ function renderProductList() {
 
     row.innerHTML = `
       <div class="product-row-top">
-        <span class="product-row-name">${escapeHtml(product.nickname)}</span>
+        <div class="product-row-identity">
+          ${product.imageUrl ? `<img class="product-thumb" src="${escapeAttr(product.imageUrl)}" alt="" />` : '<div class="product-thumb product-thumb-placeholder"></div>'}
+          <span class="product-row-name">${escapeHtml(product.nickname)}</span>
+        </div>
         <span class="product-row-price">${formatPrice(product.currentPrice)}</span>
       </div>
       <div class="product-row-meta">
@@ -147,9 +150,12 @@ function renderDetailPanel(id) {
 
   panel.innerHTML = `
     <div class="detail-header">
-      <div>
-        <h2 class="detail-title">${escapeHtml(product.nickname)}</h2>
-        <span class="search-retailers-link" id="search-retailers">Search other retailers &#8250;</span>
+      <div class="detail-header-identity">
+        ${product.imageUrl ? `<img class="detail-thumb" src="${escapeAttr(product.imageUrl)}" alt="" />` : ""}
+        <div>
+          <h2 class="detail-title">${escapeHtml(product.nickname)}</h2>
+          <span class="search-retailers-link" id="search-retailers">Search other retailers &#8250;</span>
+        </div>
       </div>
       <div class="detail-actions">
         <button class="secondary-button" id="edit-product">Edit</button>
@@ -303,6 +309,10 @@ function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return String(str).replace(/"/g, "&quot;");
 }
 
 init();

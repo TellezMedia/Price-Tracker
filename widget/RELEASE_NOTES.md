@@ -32,3 +32,10 @@ Not yet built
 - Any bundled default icon set beyond the generated placeholder
   icon, happy to swap in something custom if you want a different
   look
+
+## v0.1.1 (Beta)
+
+Added
+- Product thumbnails: shows the product image in both the list row
+  and the detail panel header, pulled from the worker's new
+  imageUrl field (requires worker v0.1.4 or later)

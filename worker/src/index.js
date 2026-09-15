@@ -98,6 +98,7 @@ async function handleAddProduct(request, env) {
     manualSelector: body.manualSelector || null,
     currentPrice: null,
     lowestPrice: null,
+    imageUrl: null,
     priceHistory: [],
     unreadable: false,
     lastError: null,
@@ -160,11 +161,11 @@ async function checkOneProduct(env, product) {
   const result = await extractPrice(product.url, product.manualSelector);
 
   if (result.ok) {
-    appendPricePoint(product, result.price);
+    appendPricePoint(product, result.price, result.imageUrl);
     product.hitTarget =
       product.targetPrice != null && result.price <= product.targetPrice;
   } else {
-    markUnreadable(product, result.reason);
+    markUnreadable(product, result.reason, result.imageUrl);
   }
 
   await saveProduct(env.PRICE_TRACKER_KV, product);

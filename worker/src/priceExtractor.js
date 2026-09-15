@@ -27,17 +27,18 @@ export async function extractPrice(url, manualSelector) {
   }
 
   const html = await response.text();
+  const imageUrl = extractImage(html);
 
   if (manualSelector) {
     const manual = await extractWithSelector(html, manualSelector);
-    if (manual) return { ok: true, price: manual, method: "manual_selector" };
+    if (manual) return { ok: true, price: manual, method: "manual_selector", imageUrl };
   }
 
   const structured = extractFromStructuredData(html);
-  if (structured) return { ok: true, price: structured, method: "structured_data" };
+  if (structured) return { ok: true, price: structured, method: "structured_data", imageUrl };
 
   const generic = await extractGeneric(html);
-  if (generic) return { ok: true, price: generic, method: "generic_scan" };
+  if (generic) return { ok: true, price: generic, method: "generic_scan", imageUrl };
 
   // Last resort: some sites (Ubiquiti's store included) render the
   // price as plain text without JSON-LD, price meta tags, or any
@@ -47,9 +48,27 @@ export async function extractPrice(url, manualSelector) {
   // least precise method, so it runs last, after every more
   // targeted approach has failed.
   const rawScan = extractFirstDollarAmount(html);
-  if (rawScan) return { ok: true, price: rawScan, method: "raw_text_scan" };
+  if (rawScan) return { ok: true, price: rawScan, method: "raw_text_scan", imageUrl };
 
-  return { ok: false, reason: "no_price_found" };
+  return { ok: false, reason: "no_price_found", imageUrl };
+}
+
+function extractImage(html) {
+  // og:image is the standard tag sites use for link previews
+  // (social shares, text message previews), a reliable, widely
+  // supported source for a product thumbnail.
+  const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+  if (ogMatch) return ogMatch[1];
+
+  // Some sites order the attributes the other way (content before
+  // property), so check that too.
+  const ogMatchReversed = html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+  if (ogMatchReversed) return ogMatchReversed[1];
+
+  const twitterMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i);
+  if (twitterMatch) return twitterMatch[1];
+
+  return null;
 }
 
 function extractFromStructuredData(html) {

@@ -38,7 +38,7 @@ export async function deleteProduct(kv, id) {
   await removeFromIndex(kv, id);
 }
 
-export function appendPricePoint(product, price) {
+export function appendPricePoint(product, price, imageUrl) {
   const point = { price, checkedAt: new Date().toISOString() };
   product.priceHistory = [...(product.priceHistory || []), point].slice(-MAX_HISTORY_POINTS);
   product.currentPrice = price;
@@ -48,13 +48,15 @@ export function appendPricePoint(product, price) {
       : Math.min(product.lowestPrice, price);
   product.lastCheckedAt = point.checkedAt;
   product.unreadable = false;
+  if (imageUrl) product.imageUrl = imageUrl;
   return product;
 }
 
-export function markUnreadable(product, reason) {
+export function markUnreadable(product, reason, imageUrl) {
   product.unreadable = true;
   product.lastError = reason;
   product.lastCheckedAt = new Date().toISOString();
+  if (imageUrl) product.imageUrl = imageUrl;
   return product;
 }
 

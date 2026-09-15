@@ -60,3 +60,11 @@ Added
 - Updating targetPrice via PATCH immediately re-checks hitTarget
   against the last known price, rather than waiting for the next
   scheduled check
+
+## v0.1.4 (Beta)
+
+Added
+- Product image extraction, pulls the og:image meta tag (falls
+  back to twitter:image) from the product page and stores it as
+  imageUrl on the product record. Refreshed on every check, so it
+  stays current if a retailer changes their product photo.
