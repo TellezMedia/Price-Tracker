@@ -1,6 +1,6 @@
 {
   "name": "price-tracker-widget",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "main": "main.js",
   "scripts": {
@@ -19,8 +19,15 @@
     "appId": "com.tellez.pricetrackerwidget",
     "productName": "Price Tracker",
     "win": {
-      "target": "portable",
+      "target": "nsis",
       "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Price Tracker"
     },
     "files": [
       "main.js",

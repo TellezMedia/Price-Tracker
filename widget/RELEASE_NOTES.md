@@ -39,3 +39,12 @@ Added
 - Product thumbnails: shows the product image in both the list row
   and the detail panel header, pulled from the worker's new
   imageUrl field (requires worker v0.1.4 or later)
+
+## v0.1.2 (Beta)
+
+Changed
+- Switched packaging from a portable single-file exe to a proper
+  NSIS installer (Setup.exe): install wizard, Start Menu shortcut,
+  Desktop shortcut, and a normal uninstaller listed in Windows'
+  "Add or Remove Programs." Run `npm run build`, the installer
+  lands in the dist folder.
