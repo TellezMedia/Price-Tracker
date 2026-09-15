@@ -1,6 +1,8 @@
 {
   "name": "price-tracker-widget",
-  "version": "0.1.3",
+  "version": "0.1.4",
+  "description": "Desktop widget for tracking product prices, works with the Price Tracker Worker backend.",
+  "author": "Tony Tellez",
   "private": true,
   "main": "main.js",
   "scripts": {
@@ -19,9 +21,10 @@
     "appId": "com.tellez.pricetrackerwidget",
     "productName": "Price Tracker",
     "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico",
-      "arch": ["x64"]
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico"
     },
     "nsis": {
       "oneClick": false,

@@ -58,3 +58,15 @@ Changed
 - Installer filename now includes the version and architecture:
   Price-Tracker-Setup-0.1.3-x64.exe, so it's self-explanatory to
   anyone downloading it later.
+
+## v0.1.4 (Beta)
+
+Fixed
+- The x64 arch setting was in the wrong place in package.json,
+  electron-builder rejected it as an unknown property under win.
+  Moved it into the nsis target definition where it actually
+  belongs: win.target is now an array with the arch nested inside
+  the target entry, not a sibling property.
+- Added description and author fields to package.json, cleared two
+  harmless but noisy warnings electron-builder was printing on
+  every build.
