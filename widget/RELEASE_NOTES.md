@@ -70,3 +70,15 @@ Fixed
 - Added description and author fields to package.json, cleared two
   harmless but noisy warnings electron-builder was printing on
   every build.
+
+## v0.1.5 (Beta)
+
+Changed
+- Switched back to a portable single-file exe instead of the NSIS
+  installer. Simpler and matches the task widget's build process:
+  two commands (npm install, npm run build), one file out, no
+  install wizard, no code-signing tooling, no arch configuration to
+  get wrong.
+- Going forward, every version you get is a complete, self-contained
+  zip. Unzip it over your existing project folder and overwrite
+  everything, no more tracking which individual files changed.
