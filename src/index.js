@@ -6,11 +6,12 @@ import {
   deleteProduct,
   appendPricePoint,
   markUnreadable,
+  mergeProductUpdates,
 } from "./store.js";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
+  "Access-Control-Allow-Methods": "GET,POST,PATCH,DELETE,OPTIONS",
   "Access-Control-Allow-Headers": "Authorization,Content-Type",
 };
 
@@ -36,6 +37,7 @@ export default {
       if (parts[0] === "products" && parts.length === 2) {
         const id = parts[1];
         if (request.method === "GET") return await handleGetProduct(env, id);
+        if (request.method === "PATCH") return await handlePatchProduct(request, env, id);
         if (request.method === "DELETE") return await handleDeleteProduct(env, id);
       }
 
@@ -117,6 +119,23 @@ async function handleAddProduct(request, env) {
 async function handleDeleteProduct(env, id) {
   await deleteProduct(env.PRICE_TRACKER_KV, id);
   return json({ deleted: true });
+}
+
+async function handlePatchProduct(request, env, id) {
+  const product = await getProduct(env.PRICE_TRACKER_KV, id);
+  if (!product) return json({ error: "Not found" }, 404);
+
+  const updates = await request.json();
+  mergeProductUpdates(product, updates);
+
+  // If the target price just changed, re-evaluate hitTarget against
+  // the last known price rather than waiting for the next check.
+  if (updates.targetPrice !== undefined && product.currentPrice != null) {
+    product.hitTarget = product.currentPrice <= product.targetPrice;
+  }
+
+  await saveProduct(env.PRICE_TRACKER_KV, product);
+  return json({ product });
 }
 
 async function handleCheckNow(env, id) {

@@ -25,6 +25,14 @@ export async function saveProduct(kv, product) {
   return product;
 }
 
+export function mergeProductUpdates(product, updates) {
+  const allowedFields = ["nickname", "targetPrice", "manualSelector", "notifyOnDrop", "searchQuery"];
+  for (const field of allowedFields) {
+    if (updates[field] !== undefined) product[field] = updates[field];
+  }
+  return product;
+}
+
 export async function deleteProduct(kv, id) {
   await kv.delete(`product:${id}`);
   await removeFromIndex(kv, id);

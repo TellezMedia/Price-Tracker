@@ -49,3 +49,14 @@ Known limitation
   could grab the wrong number. If you see a `currentPrice` that
   looks wrong on a specific product, set a `manualSelector` on that
   product, that takes priority over every fallback.
+
+## v0.1.3 (Beta)
+
+Added
+- PATCH /products/:id endpoint, lets you update a product's
+  nickname, target price, manual selector, notify toggle, or search
+  query after it's already been added, needed for the widget's Edit
+  Product feature
+- Updating targetPrice via PATCH immediately re-checks hitTarget
+  against the last known price, rather than waiting for the next
+  scheduled check
