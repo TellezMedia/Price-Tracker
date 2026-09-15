@@ -48,3 +48,13 @@ Changed
   Desktop shortcut, and a normal uninstaller listed in Windows'
   "Add or Remove Programs." Run `npm run build`, the installer
   lands in the dist folder.
+
+## v0.1.3 (Beta)
+
+Changed
+- Build now explicitly targets x64 (64-bit Windows) instead of
+  implicitly using whatever architecture the build machine happens
+  to be. Covers the vast majority of Windows PCs, including yours.
+- Installer filename now includes the version and architecture:
+  Price-Tracker-Setup-0.1.3-x64.exe, so it's self-explanatory to
+  anyone downloading it later.
