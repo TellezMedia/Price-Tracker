@@ -1,5 +1,14 @@
 # Price Tracker Widget - Release Notes
 
+## Known issues (planned for next version)
+
+- Taskbar icon shows a generic/fallback icon instead of the app's
+  actual icon on the portable build, needs investigating, likely an
+  icon embedding issue specific to the portable packaging target
+- No desktop icon gets created, expected for a portable exe (no
+  installer means no automatic shortcuts), but worth adding a
+  manual step or a small setup script to create one
+
 ## v0.1.5 (Beta)
 
 Changed
