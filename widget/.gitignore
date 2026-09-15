@@ -1,0 +1,4 @@
+node_modules/
+dist/
+price-tracker-settings.json
+*.log

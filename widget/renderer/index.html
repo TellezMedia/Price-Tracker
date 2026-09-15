@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Price Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Price Tracker</h1>
+    <div class="topbar-actions">
+      <button id="theme-toggle" class="icon-button" title="Toggle dark/light theme">&#9789;</button>
+      <button id="settings-button" class="icon-button" title="Settings">&#9881;</button>
+      <button id="add-product-button" class="primary-button">+ Add Product</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="product-list" id="product-list">
+      <p class="empty-state" id="empty-state">No products tracked yet. Add one to get started.</p>
+    </section>
+
+    <section class="detail-panel" id="detail-panel">
+      <p class="empty-state">Select a product to see its price history.</p>
+    </section>
+  </main>
+
+  <!-- Add / Edit Product Modal -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="modal">
+      <h2 id="product-modal-title">Add Product</h2>
+      <label>
+        Product URL
+        <input type="text" id="product-url" placeholder="https://..." />
+      </label>
+      <label>
+        Nickname
+        <input type="text" id="product-nickname" placeholder="What should we call this?" />
+      </label>
+      <label>
+        Target Price
+        <input type="number" id="product-target" placeholder="200.00" step="0.01" />
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="product-notify" checked />
+        Notify me when the price hits target
+      </label>
+      <details class="advanced-fields">
+        <summary>Advanced: manual selector override</summary>
+        <label>
+          CSS Selector (only needed if the price isn't detected automatically)
+          <input type="text" id="product-selector" placeholder='e.g. [class*="price"]' />
+        </label>
+      </details>
+      <div class="modal-actions">
+        <button id="product-cancel" class="secondary-button">Cancel</button>
+        <button id="product-save" class="primary-button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal-overlay">
+    <div class="modal">
+      <h2>Settings</h2>
+      <label>
+        Worker URL
+        <input type="text" id="settings-worker-url" placeholder="https://price-tracker-worker.yoursubdomain.workers.dev" />
+      </label>
+      <label>
+        API Key
+        <input type="password" id="settings-api-key" placeholder="Your worker's API key" />
+      </label>
+      <div class="modal-actions">
+        <button id="settings-cancel" class="secondary-button">Cancel</button>
+        <button id="settings-save" class="primary-button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
