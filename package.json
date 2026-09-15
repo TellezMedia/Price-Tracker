@@ -1,0 +1,13 @@
+{
+  "name": "price-tracker-worker",
+  "version": "0.1.2",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

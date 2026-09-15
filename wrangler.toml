@@ -1,0 +1,22 @@
+name = "price-tracker-worker"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+# Runs once every 24 hours. Adjust the cron string if you want a
+# different time of day (this fires at 09:00 UTC, roughly 4am/5am
+# Eastern depending on DST).
+[triggers]
+crons = ["0 9 * * *"]
+
+# Create this KV namespace with:
+#   wrangler kv:namespace create PRICE_TRACKER_KV
+# then paste the returned id below.
+[[kv_namespaces]]
+binding = "PRICE_TRACKER_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Set this secret with:
+#   wrangler secret put API_KEY
+# The Electron widget must send this same value as a Bearer token
+# on every request. This keeps random people from hitting your
+# worker and adding/reading your tracked products.
